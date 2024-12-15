@@ -2,41 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorManager : MonoBehaviour
+public class DoorManager : SingleTon<DoorManager>
 {
     public Door[] doorEntities;
-    void Update()
+
+    public void SetDoorState(bool enable, int id)
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            CheckDoorID(0);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            CheckDoorID(1);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            CheckDoorID(2);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            CheckDoorID(3);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            CheckDoorID(4);
-        }
+        if (!doorEntities[id].canAccess) return;
+
+        bool isOpen = enable ? SetDoorOpen(id) : SetDoorClose(id);  
     }
-    public void CheckDoorID(int id)
+
+    private bool SetDoorOpen(int id)
+    {
+        doorEntities[id].OpenDoor();
+        return false;
+    }
+
+    private bool SetDoorClose(int id)
+    {
+        doorEntities[id].CloseDoor();
+        return true;
+    }
+
+    public void CheckDoorId(int id)
     {
         foreach(var door in doorEntities)
         {
-            if(door.id != id)
-            {
+            if (door.id != id)
                 continue;
-            }
-            door.OpenDoor();
+
+            SetDoorState(!door.currentState, id);
+            door.currentState = !door.currentState;
         }
     }
 }
