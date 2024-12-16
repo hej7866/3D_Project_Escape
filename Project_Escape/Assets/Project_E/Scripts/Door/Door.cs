@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteract
 {
     Animator anim;
 
@@ -25,5 +25,10 @@ public class Door : MonoBehaviour
     public void CloseDoor()
     {
         anim.Play(closeHashCode);
+    }
+
+    public void Interact()
+    {
+        DoorManager.Instance.CheckDoorId(id);
     }
 }
