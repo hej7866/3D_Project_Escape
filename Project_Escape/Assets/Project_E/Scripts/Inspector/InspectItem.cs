@@ -6,11 +6,11 @@ public class InspectItem : MonoBehaviour
 {
     public InspectData inspectData;
 
-    public void ShowObjectName()
+    public void ShowObjectName(bool enable)
     {
         if(inspectData.showObjectName)
         {
-            InspectManager.Instance.ShowName(inspectData.objectName, inspectData.showObjectName);
+            InspectManager.Instance.ShowName(inspectData.objectName, enable);
         }
     }
 
@@ -19,16 +19,7 @@ public class InspectItem : MonoBehaviour
         if(inspectData.showObjectDetails)
         {
             // InspectManager
+            InspectManager.Instance.ShowObjectDetail(inspectData.objectDetails);
         }
     }
-
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            ShowObjectName();
-        }
-    }
-
 }

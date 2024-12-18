@@ -13,6 +13,11 @@ public class Door : MonoBehaviour, IInteract
 
     int openHashCode = Animator.StringToHash("Open");
     int closeHashCode = Animator.StringToHash("Close");
+
+    public AudioClip openDoor;
+    public AudioClip closeDoor;
+
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -21,10 +26,12 @@ public class Door : MonoBehaviour, IInteract
     public void OpenDoor()
     {
         anim.Play(openHashCode);
+        AudioManager.Instance.PlaySFX(openDoor);
     }
     public void CloseDoor()
     {
         anim.Play(closeHashCode);
+        AudioManager.Instance.PlaySFX(closeDoor);
     }
 
     public void Interact()
