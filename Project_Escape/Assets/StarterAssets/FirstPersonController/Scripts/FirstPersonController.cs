@@ -112,6 +112,8 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			if(!TriggerManager.Instance.canMove) return;
+
 			JumpAndGravity();
 			GroundedCheck();
 			Move();

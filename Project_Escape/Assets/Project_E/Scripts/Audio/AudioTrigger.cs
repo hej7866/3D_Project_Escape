@@ -10,10 +10,16 @@ public class AudioTrigger : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            if(audioClip != null) 
-                AudioManager.Instance.PlaySFX(audioClip);
-
-            gameObject.SetActive(false);
+            Execute();
         }
+    }
+
+    private void Execute()
+    {
+        if (audioClip != null)
+            AudioManager.Instance.PlaySFX(audioClip);
+
+        TriggerManager.Instance.ExecuteTrigger();
+        gameObject.SetActive(false);
     }
 }
